@@ -4,7 +4,7 @@ var random = require("./random");
 module.exports = class Mard extends LiveForm {
     constructor(x, y) {
         super(x, y);
-        this.life = 5;
+        this.life = 10;
     }
     getNewCoordinates() {
         this.directions = [
@@ -25,14 +25,18 @@ module.exports = class Mard extends LiveForm {
     mul() {
         let emptyCells = this.chooseCell(0);
         let newCell = random(emptyCells);
+        
+        
+        mardHashiv++;
 
+        
         if (newCell) {
             let x = newCell[0];
             let y = newCell[1];
             matrix[y][x] = 4;
             let mard = new Mard(x, y);
             mardArr.push(mard);
-            this.life = 5;
+            this.life = 10;
         }
     }
     eat() {
@@ -45,24 +49,25 @@ module.exports = class Mard extends LiveForm {
             let x = newCell[0];
             let y = newCell[1];
 
+            
             matrix[this.y][this.x] = 0;
             matrix[y][x] = 4;
 
 			
             for (var i in grassArr) {
-                if (newX == grassArr[i].x && newY == grassArr[i].y) {
+                if (x == grassArr[i].x && y == grassArr[i].y) {
                     grassArr.splice(i, 1);
                     break;
                 }
             }
             for (var i in grassEaterArr) {
-                if (newX == grassEaterArr[i].x && newY == grassEaterArr[i].y) {
+                if (x == grassEaterArr[i].x && y == grassEaterArr[i].y) {
                     grassEaterArr.splice(i, 1);
                     break;
                 }
             }
             for (var i in grassEaterEaterArr) {
-                if (newX == grassEaterEaterArr[i].x && newY == grassEaterEaterArr[i].y) {
+                if (x == grassEaterEaterArr[i].x && y == grassEaterEaterArr[i].y) {
                     grassEaterEaterArr.splice(i, 1);
                     break;
                 }
@@ -73,7 +78,7 @@ module.exports = class Mard extends LiveForm {
             this.life += 2;
 
         }
-            if (this.life >= 10) {
+            if (this.life >= 15) {
                 this.mul();
             }else {
             this.move()

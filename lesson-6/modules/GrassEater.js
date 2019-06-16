@@ -1,5 +1,5 @@
 var LiveForm = require("./LiveForm");
-var random = require("./random.js");
+var random = require("./random");
 
 
 
@@ -43,7 +43,6 @@ module.exports = class GrassEater extends LiveForm {
         let newCell = random(emptyCells);
 
         if (newCell) {
-
             this.life++;
             let x = newCell[0];
             let y = newCell[1];

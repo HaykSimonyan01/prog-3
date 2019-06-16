@@ -22,9 +22,9 @@ function setup() {
         //! after getting data pass it to matrix variable
         matrix = data.matrix;
         grassCountElement.innerText = data.grassCounter;
-        grassEaterCountElement.innerText = data.grasEatersCounter;
-        grassEaterEaterCountElement.innerText = data.grasEatersEaterCounter;
-        //mardCountElement.innerText = data.mardCounter;
+        grassEaterCountElement.innerText = data.grassEatersCounter;
+        grassEaterEaterCountElement.innerText = data.grassEaterEatersCounter;
+        mardCountElement.innerText = data.mardsCounter;
         //! Every time it creates new Canvas woth new matrix size
         createCanvas(matrix[0].length * side, matrix.length * side)
         //! clearing background by setting it to new grey color

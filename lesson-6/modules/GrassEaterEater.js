@@ -25,6 +25,8 @@ module.exports = class GrassEaterEater extends LiveForm {
     mul() {
         let emptyCells = this.chooseCell(0);
         let newCell = random(emptyCells);
+       
+        grassEaterEaterHashiv++;
 
         if (newCell) {
             let x = newCell[0];
@@ -39,6 +41,7 @@ module.exports = class GrassEaterEater extends LiveForm {
         let emptyCells = this.chooseCell(2);
         let newCell = random(emptyCells);
 
+        
         if (newCell) {
 
             this.life++;
@@ -77,7 +80,7 @@ module.exports = class GrassEaterEater extends LiveForm {
             this.y = y;
             this.x = x;
         }
-        if (this.life <= 0) {
+        if (this.life = 0) {
             this.die();
         }
     }

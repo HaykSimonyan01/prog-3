@@ -2,7 +2,7 @@
 //! Requiring modules  --  START
 var Grass = require("./modules/Grass.js");
 var GrassEater = require("./modules/GrassEater.js");
-let GrassEaterEater = require("./modules/GrassEaterEater.js");
+var GrassEaterEater = require("./modules/GrassEaterEater.js");
 var Mard = require("./modules/Mard.js");
 let random = require('./modules/random');
 //! Requiring modules  --  END
@@ -16,6 +16,7 @@ mardArr = [];
 matrix = [];
 grassHashiv = 0;
 grassEaterHashiv = 0;
+grassEaterEaterHashiv = 0;
 mardHashiv = 0;
 //! Setting global arrays  -- END
 
@@ -56,7 +57,7 @@ function matrixGenerator(matrixSize, grassArr, grassEaterArr, grassEaterEaterArr
         matrix[customY][customX] = 5;
     }
 }
-matrixGenerator(20, 5, 2, 2, 2);
+matrixGenerator(20, 5, 4, 2, 2);
 //! Creating MATRIX -- END
 
 
@@ -86,6 +87,15 @@ function creatingObjects() {
                 var grass = new Grass(x, y);
                 grassArr.push(grass);
                 grassHashiv++;
+            } else if (matrix[y][x] == 3) {
+                var grassEaterEater = new GrassEaterEater(x, y);
+                grassEaterEaterArr.push(grassEaterEater);
+                grassEaterEaterHashiv++;
+            } 
+            else if (matrix[y][x] == 4) {
+                var mard = new Mard(x, y);
+                mardArr.push(mard);
+                mardHashiv++;
             } 
         }
     }
@@ -103,11 +113,24 @@ function game() {
             grassEaterArr[i].eat();
         }
     }
+    if (grassEaterEaterArr[0] !== undefined) {
+        for (var i in grassEaterEaterArr) {
+            grassEaterEaterArr[i].eat();
+        }
+    }
+    if (mardArr[0] !== undefined) {
+        for (var i in mardArr) {
+            mardArr[i].eat();
+        }
+    }
 
     //! Object to send
     let sendData = {
         matrix: matrix,
-        grassCounter: grassHashiv
+        grassCounter: grassHashiv,
+        grassEatersCounter: grassEaterHashiv,
+        grassEaterEatersCounter: grassEaterEaterHashiv,
+        mardsCounter: mardHashiv,
     }
 
     //! Send data over the socket to clients who listens "data"
