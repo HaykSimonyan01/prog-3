@@ -4,6 +4,7 @@ var Grass = require("./modules/Grass.js");
 var GrassEater = require("./modules/GrassEater.js");
 var GrassEaterEater = require("./modules/GrassEaterEater.js");
 var Mard = require("./modules/Mard.js");
+var Bomb = require("./modules/Bomb.js");
 let random = require('./modules/random');
 //! Requiring modules  --  END
 
@@ -57,7 +58,7 @@ function matrixGenerator(matrixSize, grassArr, grassEaterArr, grassEaterEaterArr
         matrix[customY][customX] = 5;
     }
 }
-matrixGenerator(20, 5, 4, 2, 2);
+matrixGenerator(20, 5, 5, 4, 2);
 //! Creating MATRIX -- END
 
 
@@ -97,7 +98,14 @@ function creatingObjects() {
                 mardArr.push(mard);
                 mardHashiv++;
             } 
+            let xe =parseInt(random(0,matrix[0].length)); 
+            let ye = parseInt(random(0,matrix.length));
+    
+            var b = new Bomb(xe,ye); 
+
+            b.haytnvelMeth();
         }
+
     }
 }
 creatingObjects();
@@ -139,4 +147,4 @@ function game() {
 
 
 
-setInterval(game, 1000)
+setInterval(game, 400)

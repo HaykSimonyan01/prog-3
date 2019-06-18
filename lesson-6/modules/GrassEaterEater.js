@@ -34,7 +34,7 @@ module.exports = class GrassEaterEater extends LiveForm {
             matrix[y][x] = 3;
             let grassEaterEater = new GrassEaterEater(x, y);
             grassEaterEaterArr.push(grassEaterEater);
-            this.life = 5;
+            this.life = 10;
         }
     }
     eat() {
@@ -59,7 +59,7 @@ module.exports = class GrassEaterEater extends LiveForm {
             this.x = x;
             this.y = y;
 
-            if (this.life >= 10) {
+            if (this.life >= 12) {
                 this.mul();
             }
         }
@@ -80,7 +80,7 @@ module.exports = class GrassEaterEater extends LiveForm {
             this.y = y;
             this.x = x;
         }
-        if (this.life = 0) {
+        if (this.life <= 0) {
             this.die();
         }
     }

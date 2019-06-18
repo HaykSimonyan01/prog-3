@@ -3,111 +3,154 @@ var random = require("./random");
 
 module.exports = class Mard extends LiveForm {
     constructor(x, y) {
-        super(x, y);
-        this.life = 10;
+        super(x,y);
+        this.life = 50;
+
     }
+
     getNewCoordinates() {
         this.directions = [
+            [this.x - 3, this.y - 3],
+            [this.x - 2, this.y - 3],
+            [this.x - 2, this.y - 3],
+            [this.x - 1, this.y - 3],
+            [this.x , this.y - 3],
+            [this.x + 1, this.y - 3],
+            [this.x + 2, this.y - 3],
+            [this.x + 3, this.y - 3],
+            [this.x - 3, this.y - 2],
+            [this.x - 2, this.y - 2],
+            [this.x - 1, this.y - 2],
+            [this.x, this.y - 2],
+            [this.x + 1, this.y - 2],
+            [this.x + 2, this.y - 2],
+            [this.x + 3, this.y - 2],
+            [this.x - 3, this.y - 1],
+            [this.x - 2, this.y - 1],
             [this.x - 1, this.y - 1],
             [this.x, this.y - 1],
             [this.x + 1, this.y - 1],
+            [this.x + 2, this.y - 1],
+            [this.x + 3, this.y - 1],
+            [this.x - 3, this.y],
+            [this.x - 2, this.y],
             [this.x - 1, this.y],
             [this.x + 1, this.y],
+            [this.x + 2, this.y],
+            [this.x + 3, this.y],
+            [this.x - 3, this.y +1],
+            [this.x - 2, this.y + 1],
             [this.x - 1, this.y + 1],
             [this.x, this.y + 1],
-            [this.x + 1, this.y + 1]
+            [this.x + 1, this.y + 1],
+            [this.x + 2, this.y + 1],
+            [this.x + 3, this.y + 1],
+            [this.x - 3, this.y + 2],
+            [this.x - 2, this.y + 2],
+            [this.x - 1, this.y + 2],
+            [this.x, this.y + 2],
+            [this.x + 1, this.y + 2],
+            [this.x + 2, this.y + 2],
+            [this.x + 3, this.y + 2],
+            [this.x - 3, this.y + 3],
+            [this.x - 2, this.y + 3],
+            [this.x - 1, this.y + 3],
+            [this.x, this.y + 3],
+            [this.x + 1, this.y + 3],
+            [this.x + 2, this.y + 3],
+            [this.x + 3, this.y + 3],
         ];
     }
-    chooseCell(character) {
-        this.getNewCoordinates();
-        return super.chooseCell(character);
-    } 
-    mul() {
-        let emptyCells = this.chooseCell(0);
-        let newCell = random(emptyCells);
-        
-        
-        mardHashiv++;
 
-        
-        if (newCell) {
-            let x = newCell[0];
-            let y = newCell[1];
-            matrix[y][x] = 4;
-            let mard = new Mard(x, y);
-            mardArr.push(mard);
-            this.life = 10;
-        }
-    }
+  
     eat() {
-        var newCell1 = this.chooseCell(1);
-        var newCell2 = this.chooseCell(2);
-        var newCell3 = this.chooseCell(3);
-        var newCell = random(newCell1.concat(newCell2, newCell3));
+        let newCell1 = this.chooseCell(1);
+        let newCell2 = this.chooseCell(2);
+        let newCell3 = this.chooseCell(3);
+        let newCell = random(newCell1.concat(newCell2,newCell3));
 
         if (newCell) {
+
+            this.life++;
             let x = newCell[0];
             let y = newCell[1];
 
-            
-            matrix[this.y][this.x] = 0;
             matrix[y][x] = 4;
+            matrix[this.y][this.x] = 0;
 
-			
-            for (var i in grassArr) {
-                if (x == grassArr[i].x && y == grassArr[i].y) {
-                    grassArr.splice(i, 1);
-                    break;
-                }
-            }
-            for (var i in grassEaterArr) {
-                if (x == grassEaterArr[i].x && y == grassEaterArr[i].y) {
+            for (let i in grassEaterArr) {
+                if (grassEaterArr[i].x == x && grassEaterArr[i].y == y) {
                     grassEaterArr.splice(i, 1);
                     break;
                 }
             }
-            for (var i in grassEaterEaterArr) {
-                if (x == grassEaterEaterArr[i].x && y == grassEaterEaterArr[i].y) {
-                    grassEaterEaterArr.splice(i, 1);
-                    break;
+            for (let i in grassArr) {
+                if (grassArr[i].x == x && grassArr[i].y == y) {
+                    grassArr.splice(i, 1)
                 }
             }
-
+            for (let i in grassEaterEaterArr) {
+                if (grassEaterEaterArr[i].x == x && grassEaterEaterArr[i].y == y) {
+                    grassEaterEaterArr.splice(i, 1)
+                }
+            }
             this.x = x;
             this.y = y;
-            this.life += 2;
 
-        }
-            if (this.life >= 15) {
+            if (this.life >= 60) {
                 this.mul();
-            }else {
-            this.move()
             }
-          
+        }
+        else {
+            this.move()
+        }
     }
+
+
+
+   
     move() {
+        var empty = random(this.chooseCell(0))
         this.life--;
+        if (empty) {
+            var newX = empty[0]
+            var newY = empty[1]
+            matrix[newY][newX] = 4
+            matrix[this.y][this.x] = 0
+
+            this.x = newX
+            this.y = newY
+        }
+        if (this.life <= 30){
+            this.die();
+        }
+    }
+
+  
+    mul() {
         let emptyCells = this.chooseCell(0);
         let newCell = random(emptyCells);
+        mardHashiv++;
 
         if (newCell) {
             let x = newCell[0];
             let y = newCell[1];
-            matrix[y][x] = 3;
-            matrix[this.y][this.x] = 0;
-            this.y = y;
-            this.x = x;
-        }
-        if (this.life <= 0) {
-            this.die();
+            matrix[y][x] = 5;
+            let mard = new Mard(x, y);
+            mardArr.push(mard);
+            this.life = 50;
         }
     }
+
+
+
+  
     die() {
         matrix[this.y][this.x] = 0;
 
-        for (let i in grassEaterEaterArr) {
-            if (grassEaterEaterArr[i].x == this.x && grassEaterEaterArr[i].y == this.y) {
-                grassEaterEaterArr.splice(i, 1)
+        for (let i in mardArr) {
+            if (mardArr[i].x == this.x && mardArr[i].y == this.y) {
+                mardArr.splice(i, 1)
             }
         }
     }
