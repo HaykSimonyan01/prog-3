@@ -23,7 +23,7 @@ module.exports = class GrassEaterEater extends LiveForm {
         return super.chooseCell(character);
     } 
     mul() {
-        let emptyCells = this.chooseCell(0);
+           let emptyCells = this.chooseCell(0);
         let newCell = random(emptyCells);
        
         grassEaterEaterHashiv++;
@@ -35,10 +35,12 @@ module.exports = class GrassEaterEater extends LiveForm {
             let grassEaterEater = new GrassEaterEater(x, y);
             grassEaterEaterArr.push(grassEaterEater);
             this.life = 10;
-        }
+        } 
+        
+        
     }
     eat() {
-        let emptyCells = this.chooseCell(2);
+           let emptyCells = this.chooseCell(2);
         let newCell = random(emptyCells);
 
         
@@ -65,10 +67,9 @@ module.exports = class GrassEaterEater extends LiveForm {
         }
         else {
             this.move()
-        }
+        } 
     }
     move() {
-        if(weather != "Dzmer"){
            this.life--;
         let emptyCells = this.chooseCell(0);
         let newCell = random(emptyCells);
@@ -83,7 +84,6 @@ module.exports = class GrassEaterEater extends LiveForm {
         }
         if (this.life <= 0) {
             this.die();
-        } 
         }
         
     }

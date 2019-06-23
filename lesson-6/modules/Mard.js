@@ -64,7 +64,8 @@ module.exports = class Mard extends LiveForm {
 
   
     eat() {
-        let newCell1 = this.chooseCell(1);
+        if(weather != "Dzmer"){
+          let newCell1 = this.chooseCell(1);
         let newCell2 = this.chooseCell(2);
         let newCell3 = this.chooseCell(3);
         let newCell = random(newCell1.concat(newCell2,newCell3));
@@ -106,7 +107,9 @@ module.exports = class Mard extends LiveForm {
         }
         else {
             this.move()
+        }  
         }
+        
     }
 
 
