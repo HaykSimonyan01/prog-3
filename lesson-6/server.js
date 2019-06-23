@@ -4,7 +4,7 @@ var Grass = require("./modules/Grass.js");
 var GrassEater = require("./modules/GrassEater.js");
 var GrassEaterEater = require("./modules/GrassEaterEater.js");
 var Mard = require("./modules/Mard.js");
-var Bomb = require("./modules/Bomb.js");
+var GrassEaterEaterCreater = require("./modules/GrassEaterEaterCreater.js");
 let random = require('./modules/random');
 //! Requiring modules  --  END
 
@@ -14,18 +14,22 @@ grassArr = [];
 grassEaterArr = [];
 grassEaterEaterArr = [];
 mardArr = [];
+grassEaterEaterCreaterArr = [];
 matrix = [];
 grassHashiv = 0;
 grassEaterHashiv = 0;
 grassEaterEaterHashiv = 0;
 mardHashiv = 0;
+grassEaterEaterCreaterHashiv = 0;
+weather = "";
+index = 0;
 //! Setting global arrays  -- END
 
 
 
 
 //! Creating MATRIX -- START
-function matrixGenerator(matrixSize, grassArr, grassEaterArr, grassEaterEaterArr, mardArr, fireArr) {
+function matrixGenerator(matrixSize, grassArr, grassEaterArr, grassEaterEaterArr, mardArr, grassEaterEaterCreaterArr) {
     for (let i = 0; i < matrixSize; i++) {
         matrix[i] = [];
         for (let o = 0; o < matrixSize; o++) {
@@ -52,13 +56,13 @@ function matrixGenerator(matrixSize, grassArr, grassEaterArr, grassEaterEaterArr
         let customY = Math.floor(random(matrixSize));
         matrix[customY][customX] = 4;
     }
-    for (let i = 0; i < fireArr; i++) {
+    for (let i = 0; i < grassEaterEaterCreaterArr; i++) {
         let customX = Math.floor(random(matrixSize));
         let customY = Math.floor(random(matrixSize));
         matrix[customY][customX] = 5;
     }
 }
-matrixGenerator(20, 5, 5, 4, 2);
+matrixGenerator(20, 5, 5, 4, 2, 1);
 //! Creating MATRIX -- END
 
 
@@ -97,39 +101,35 @@ function creatingObjects() {
                 var mard = new Mard(x, y);
                 mardArr.push(mard);
                 mardHashiv++;
+            } else if (matrix[y][x] == 5) {
+                var grassEaterEaterCreater = new GrassEaterEaterCreater(x, y);
+                grassEaterEaterCreaterArr.push(grassEaterEaterCreater);
+                grassEaterEaterCreaterHashiv++;
             } 
-            let xe =parseInt(random(0,matrix[0].length)); 
-            let ye = parseInt(random(0,matrix.length));
-    
-            var b = new Bomb(xe,ye); 
-
-            b.haytnvelMeth();
         }
     }
 }
-weather = "Amar"
 
-            function exanak() {
-                if (weather == "Garun") {
-                    weather = "Amar"
-                }
-                else if (weather == "Amar") {
-                    weather = "Ashun"
-                }
-                else if (weather == "Ashun") {
-                    weather = "Dzmer"
-                }
-                else if (weather == "Dzmer") {
-                    weather = "Garun"
-                }
-                io.sockets.emit("weather", weather)
-
-            }
-
-            setInterval(exanak, 5000)
 creatingObjects();
 
 function game() {
+    if(index <=5){
+        weather = "Garun";
+    }
+    else if(index >5 && index <=10){
+        weather = "Amar";
+    }
+    else if(index > 10 && index <=15){
+        weather = "Ashun";
+    }
+    else if(index > 15 && index <=20){
+        weather ="Dzmer";
+    }
+    else if(index >=20){
+        index = 0;
+    }
+
+    index++;
     if (grassArr[0] !== undefined) {
         for (var i in grassArr) {
             grassArr[i].mul();
@@ -150,6 +150,11 @@ function game() {
             mardArr[i].eat();
         }
     }
+    if (grassEaterEaterCreaterArr[0] !== undefined) {
+        for (var i in grassEaterEaterCreaterArr) {
+            grassEaterEaterCreaterArr[i].mul();
+        }
+    }
 
     //! Object to send
     let sendData = {
@@ -158,6 +163,8 @@ function game() {
         grassEatersCounter: grassEaterHashiv,
         grassEaterEatersCounter: grassEaterEaterHashiv,
         mardsCounter: mardHashiv,
+        grassEaterEaterCreatersCounter: grassEaterEaterCreaterHashiv,
+        exanak: weather
     }
 
     //! Send data over the socket to clients who listens "data"
@@ -166,4 +173,4 @@ function game() {
 
 
 
-setInterval(game, 400)
+setInterval(game, 400);

@@ -1,11 +1,8 @@
-
 //! Setup function fires automatically
 function setup() {
 
     var socket = io();
-
     var side = 30;
-
     var matrix = [];
 
     //! Getting DOM objects (HTML elements)
@@ -13,6 +10,8 @@ function setup() {
     let grassEaterCountElement = document.getElementById('grassEaterCount');
     let grassEaterEaterCountElement = document.getElementById('grassEaterEaterCount');
     let mardCountElement = document.getElementById('mardCount');
+    let grassEaterEaterCreaterCountElement = document.getElementById('grassEaterEaterCreaterCount');
+    let exanak = document.getElementById('exanak');
 
     //! adding socket listener on "data" <-- name, after that fire 'drawCreatures' function 
 
@@ -25,6 +24,8 @@ function setup() {
         grassEaterCountElement.innerText = data.grassEatersCounter;
         grassEaterEaterCountElement.innerText = data.grassEaterEatersCounter;
         mardCountElement.innerText = data.mardsCounter;
+        grassEaterEaterCreaterCountElement.innerText = data.grassEaterEaterCreatersCounter;
+        exanak.innerText = data.exanak;
         //! Every time it creates new Canvas woth new matrix size
         createCanvas(matrix[0].length * side, matrix.length * side)
         //! clearing background by setting it to new grey color
@@ -37,16 +38,16 @@ function setup() {
         //! Drawing and coloring RECTs
         for (var i = 0; i < matrix.length; i++) {
             for (var j = 0; j < matrix[i].length; j++) {
-                if (matrix[i][j] == 1 && weather =="Amar") {
+                if (matrix[i][j] == 1 && data.exanak =="Amar") {
                     fill("#99ff33");
                     rect(j * side, i * side, side, side);
-                }else if (matrix[i][j] == 1 && weather =="Ashun") {
+                }else if (matrix[i][j] == 1 && data.exanak =="Ashun") {
                     fill("#ffff66");
                     rect(j * side, i * side, side, side);
-                }else if (matrix[i][j] == 1 && weather =="Dzmer") {
+                }else if (matrix[i][j] == 1 && data.exanak =="Dzmer") {
                     fill("#666633");
                     rect(j * side, i * side, side, side);
-                }else if (matrix[i][j] == 1 && weather =="Garun") {
+                }else if (matrix[i][j] == 1 && data.exanak =="Garun") {
                     fill("green");
                     rect(j * side, i * side, side, side);
                 }else if (matrix[i][j] == 2) {
@@ -60,6 +61,9 @@ function setup() {
                     rect(j * side, i * side, side, side);
                 } else if (matrix[i][j] == 4) {
                     fill('blue');
+                    rect(j * side, i * side, side, side);
+                }else if (matrix[i][j] == 5) {
+                    fill('black');
                     rect(j * side, i * side, side, side);
                 }
             }
