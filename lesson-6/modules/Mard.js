@@ -78,20 +78,23 @@ module.exports = class Mard extends LiveForm {
             matrix[y][x] = 4;
             matrix[this.y][this.x] = 0;
 
+            
+            for (let i in grassArr) {
+                if (grassArr[i].x == x && grassArr[i].y == y) {
+                    grassArr.splice(i, 1)
+                    break;
+                }
+            }
             for (let i in grassEaterArr) {
                 if (grassEaterArr[i].x == x && grassEaterArr[i].y == y) {
                     grassEaterArr.splice(i, 1);
                     break;
                 }
             }
-            for (let i in grassArr) {
-                if (grassArr[i].x == x && grassArr[i].y == y) {
-                    grassArr.splice(i, 1)
-                }
-            }
             for (let i in grassEaterEaterArr) {
                 if (grassEaterEaterArr[i].x == x && grassEaterEaterArr[i].y == y) {
                     grassEaterEaterArr.splice(i, 1)
+                    break;
                 }
             }
             this.x = x;
@@ -110,6 +113,7 @@ module.exports = class Mard extends LiveForm {
 
    
     move() {
+        if(weather != "Dzmer"){
         var empty = random(this.chooseCell(0))
         this.life--;
         if (empty) {
@@ -124,6 +128,8 @@ module.exports = class Mard extends LiveForm {
         if (this.life <= 30){
             this.die();
         }
+        }
+        
     }
 
   

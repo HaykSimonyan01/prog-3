@@ -4,7 +4,7 @@ var random = require("./random");
 module.exports = class GrassEaterEater extends LiveForm {
     constructor(x, y) {
         super(x, y);
-        this.life = 10;
+        this.life = 20;
     }
     getNewCoordinates() {
         this.directions = [
@@ -59,7 +59,7 @@ module.exports = class GrassEaterEater extends LiveForm {
             this.x = x;
             this.y = y;
 
-            if (this.life >= 12) {
+            if (this.life >= 21) {
                 this.mul();
             }
         }
@@ -68,7 +68,8 @@ module.exports = class GrassEaterEater extends LiveForm {
         }
     }
     move() {
-        this.life--;
+        if(weather != "Dzmer"){
+           this.life--;
         let emptyCells = this.chooseCell(0);
         let newCell = random(emptyCells);
 
@@ -82,8 +83,11 @@ module.exports = class GrassEaterEater extends LiveForm {
         }
         if (this.life <= 0) {
             this.die();
+        } 
         }
+        
     }
+    
     die() {
         matrix[this.y][this.x] = 0;
 

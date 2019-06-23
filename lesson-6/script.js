@@ -31,13 +31,25 @@ function setup() {
         background('#acacac');
         //! Draw grassCount and grassEaterCount to HTML (use DOM objects to update information, yes, and use .innerText <- function)
 
+        socket.on("weather", function (data) {
+            weather = data;
+        });
         //! Drawing and coloring RECTs
         for (var i = 0; i < matrix.length; i++) {
             for (var j = 0; j < matrix[i].length; j++) {
-                if (matrix[i][j] == 1) {
+                if (matrix[i][j] == 1 && weather =="Amar") {
+                    fill("#99ff33");
+                    rect(j * side, i * side, side, side);
+                }else if (matrix[i][j] == 1 && weather =="Ashun") {
+                    fill("#ffff66");
+                    rect(j * side, i * side, side, side);
+                }else if (matrix[i][j] == 1 && weather =="Dzmer") {
+                    fill("#666633");
+                    rect(j * side, i * side, side, side);
+                }else if (matrix[i][j] == 1 && weather =="Garun") {
                     fill("green");
                     rect(j * side, i * side, side, side);
-                } else if (matrix[i][j] == 2) {
+                }else if (matrix[i][j] == 2) {
                     fill("orange");
                     rect(j * side, i * side, side, side);
                 } else if (matrix[i][j] == 0) {
@@ -48,9 +60,6 @@ function setup() {
                     rect(j * side, i * side, side, side);
                 } else if (matrix[i][j] == 4) {
                     fill('blue');
-                    rect(j * side, i * side, side, side);
-                } else if (matrix[i][j] == 5) {
-                    fill('yellow');
                     rect(j * side, i * side, side, side);
                 }
             }

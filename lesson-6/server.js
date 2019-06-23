@@ -105,9 +105,28 @@ function creatingObjects() {
 
             b.haytnvelMeth();
         }
-
     }
 }
+weather = "Amar"
+
+            function exanak() {
+                if (weather == "Garun") {
+                    weather = "Amar"
+                }
+                else if (weather == "Amar") {
+                    weather = "Ashun"
+                }
+                else if (weather == "Ashun") {
+                    weather = "Dzmer"
+                }
+                else if (weather == "Dzmer") {
+                    weather = "Garun"
+                }
+                io.sockets.emit("weather", weather)
+
+            }
+
+            setInterval(exanak, 5000)
 creatingObjects();
 
 function game() {

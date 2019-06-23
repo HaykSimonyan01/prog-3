@@ -67,7 +67,8 @@ module.exports = class GrassEater extends LiveForm {
         }
     }
     move() {
-        this.life--;
+        if(weather != "Dzmer"){
+            this.life--;
         let emptyCells = this.chooseCell(0);
         let newCell = random(emptyCells);
 
@@ -79,17 +80,35 @@ module.exports = class GrassEater extends LiveForm {
             this.y = y;
             this.x = x;
         }
-        if (this.life < 0) {
+        if (this.life <= 0) {
             this.die();
+            
         }
+        }
+        
     }
     die() {
-        matrix[this.y][this.x] = 0;
+        if (weather != "Dzmer" && this.life <= 2){
+             matrix[this.y][this.x] = 0;
 
-        for (let i in grassEaterArr) {
-            if (grassEaterArr[i].x == this.x && grassEaterArr[i].y == this.y) {
-                grassEaterArr.splice(i, 1)
+            for (let i in grassEaterArr) {
+                if (grassEaterArr[i].x == this.x && grassEaterArr[i].y == this.y) {
+                    grassEaterArr.splice(i, 1)
+                    break;
+                }
+            }
+        }
+           
+        else if (weather == "Dzmer" && this.life <= 0) {
+            matrix[this.y][this.x] = 0;
+
+            for (let i in grassEaterArr) {
+                if (grassEaterArr[i].x == this.x && grassEaterArr[i].y == this.y) {
+                    grassEaterArr.splice(i, 1)
+                    break;
+                }
             }
         }
     }
 }
+    
